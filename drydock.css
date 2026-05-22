@@ -1,0 +1,404 @@
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: #060503;
+  font-family: "Trebuchet MS", "Segoe UI", Arial, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: "Bebas Neue Local";
+  src: url("./assets/fonts/BebasNeue-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Rajdhani Local";
+  src: url("./assets/fonts/Rajdhani-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "IBM Plex Mono Local";
+  src: url("./assets/fonts/IBMPlexMono-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Anton Local";
+  src: url("./assets/fonts/Anton-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --font-countdown: "Anton Local", Impact, "Arial Narrow", sans-serif;
+  --font-label: "Rajdhani Local", "Rajdhani", "Arial Narrow", sans-serif;
+  --font-message: "IBM Plex Mono Local", "IBM Plex Mono", "Courier New", monospace;
+}
+
+body.day-mode {
+  --bg: #060503;
+  --panel: #14100c;
+  --panel-2: #0d0a08;
+  --accent: #cf7e2c;
+  --accent-dim: #8f551e;
+  --text: #d99644;
+  --text-dim: #a66a2d;
+  --glow: rgba(214, 132, 39, 0.35);
+}
+
+body.night-mode {
+  --bg: #050303;
+  --panel: #150d0c;
+  --panel-2: #0d0707;
+  --accent: #a84730;
+  --accent-dim: #6f2b1f;
+  --text: #bc5438;
+  --text-dim: #844030;
+  --glow: rgba(188, 84, 56, 0.2);
+}
+
+.rotate-message {
+  display: none;
+  width: 100vw;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  padding: 5vh 6vw;
+  text-align: center;
+  color: var(--text);
+  font-size: clamp(1.1rem, 5vw, 2.4rem);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  background: var(--bg);
+}
+
+.viewport {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-pack: center;
+  -webkit-box-align: center;
+  display: -webkit-flex;
+  -webkit-justify-content: center;
+  -webkit-align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background:
+    radial-gradient(circle at 50% 25%, rgba(209, 126, 44, 0.07), transparent 45%),
+    linear-gradient(160deg, #090705, #050403 58%, #0d0705);
+}
+
+.dashboard-stage {
+  width: min(96vw, calc(94vh * 1.6));
+  aspect-ratio: 16 / 10;
+  max-height: 94vh;
+  min-height: 0;
+  overflow: hidden;
+  padding: clamp(8px, 1.2vh, 16px);
+  display: grid;
+  grid-template-rows: 10% 48% 16% 22%;
+  gap: clamp(6px, 1vh, 12px);
+  background-image:
+    linear-gradient(
+      rgba(0, 0, 0, 0.25),
+      rgba(0, 0, 0, 0.25)
+    ),
+    url("./assets/steel_background.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: clamp(3px, 0.6vh, 8px) solid #55301e;
+  box-shadow:
+    0 0 26px rgba(0, 0, 0, 0.85),
+    inset 0 0 22px rgba(255, 170, 80, 0.08),
+    inset 0 0 0 2px rgba(160, 93, 37, 0.38);
+}
+
+.stage-header,
+.primary-panel,
+.message-panel,
+.bottom-row {
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.stage-header {
+  display: -webkit-box;
+  -webkit-box-pack: center;
+  -webkit-box-align: center;
+  display: -webkit-flex;
+  -webkit-justify-content: center;
+  -webkit-align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--text-dim);
+  font-size: clamp(0.9rem, 2.3vh, 1.8rem);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-family: "Rajdhani", sans-serif;
+  font-weight: 600;
+}
+
+#arrivalsTrigger {
+  text-shadow: 0 0 8px var(--glow);
+}
+
+.primary-panel {
+  border: 2px solid var(--accent-dim);
+  background-color: rgba(5, 5, 5, 0.38);
+  box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.45);
+  display: -webkit-box;
+  -webkit-box-pack: center;
+  -webkit-box-align: center;
+  display: -webkit-flex;
+  -webkit-justify-content: center;
+  -webkit-align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.days-value-wrap {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  padding: clamp(8px, 1.2vh, 16px);
+  display: grid;
+  grid-template-rows: 58% 16% 18% 8%;
+  align-items: center;
+  justify-items: center;
+}
+
+.days-value {
+  color: var(--text);
+  font-size: clamp(5rem, 22vh, 20rem);
+  line-height: 0.92;
+  letter-spacing: -0.01em;
+  font-stretch: condensed;
+  font-weight: 400;
+  text-transform: uppercase;
+  font-family: var(--font-countdown) !important;
+  text-shadow:
+    0 0 4px rgba(255, 170, 80, 0.18),
+    0 0 8px rgba(255, 120, 40, 0.1);
+}
+
+.days-label {
+  color: var(--text-dim);
+  font-size: clamp(1rem, 3.4vh, 2.4rem);
+  letter-spacing: 0.34em;
+  font-family: "Rajdhani", sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.months-days {
+  color: var(--text);
+  font-size: clamp(1rem, 3.4vh, 2.8rem);
+  letter-spacing: 0.18em;
+  font-family: "Rajdhani", sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.status-hidden {
+  font-size: 0.1px;
+  opacity: 0;
+}
+
+.message-panel {
+  border: 2px solid var(--accent-dim);
+  background-color: rgba(5, 5, 5, 0.38);
+  box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.45);
+  display: grid;
+  grid-template-rows: 34% 66%;
+  align-items: stretch;
+}
+
+.panel-caption {
+  display: -webkit-box;
+  -webkit-box-pack: center;
+  -webkit-box-align: center;
+  display: -webkit-flex;
+  -webkit-justify-content: center;
+  -webkit-align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--text-dim);
+  letter-spacing: 0.22em;
+  font-size: clamp(0.75rem, 1.8vh, 1.3rem);
+  font-family: "Rajdhani", sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.message-window {
+  margin: 0 clamp(6px, 0.9vw, 12px) clamp(6px, 0.9vh, 10px) clamp(6px, 0.9vw, 12px);
+  border: 1px solid var(--accent-dim);
+  display: -webkit-box;
+  -webkit-box-pack: center;
+  -webkit-box-align: center;
+  display: -webkit-flex;
+  -webkit-justify-content: center;
+  -webkit-align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.45);
+  box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.45);
+}
+
+.message-track {
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  text-align: center;
+  white-space: nowrap;
+}
+
+#tickerText {
+  color: var(--text);
+  font-size: clamp(1.2rem, 4.1vh, 3.4rem);
+  line-height: 1;
+  text-shadow: 0 0 8px var(--glow);
+  font-family: var(--font-message) !important;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.bottom-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(8px, 1.2vw, 16px);
+}
+
+.info-card {
+  min-width: 0;
+  min-height: 0;
+  border: 2px solid var(--accent-dim);
+  background-color: rgba(5, 5, 5, 0.34);
+  box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.45);
+  padding: clamp(8px, 1.2vh, 14px);
+  display: grid;
+  grid-template-rows: 20% 42% 20%;
+  align-items: center;
+  justify-items: center;
+  text-align: center;
+}
+
+/* Font rules intentionally use !important to override older theme styles. */
+#arrivalsTrigger,
+.days-label,
+.months-days,
+.panel-caption,
+.card-caption,
+.card-subvalue,
+#weekdayValue {
+  font-family: var(--font-label) !important;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.card-caption {
+  color: var(--text-dim);
+  font-size: clamp(0.8rem, 2vh, 1.5rem);
+  letter-spacing: 0.2em;
+  font-family: "Rajdhani", sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.card-value {
+  color: var(--text);
+  font-size: clamp(1.7rem, 6.3vh, 5.4rem);
+  line-height: 1;
+  letter-spacing: 0.1em;
+  text-shadow: 0 0 8px var(--glow);
+  white-space: nowrap;
+}
+
+.card-subvalue {
+  color: var(--text-dim);
+  font-size: clamp(0.72rem, 1.8vh, 1.3rem);
+  letter-spacing: 0.14em;
+  white-space: nowrap;
+  font-family: "Rajdhani", sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.display-glow {
+  text-shadow: 0 0 8px var(--glow);
+}
+
+body.lightweight-mode .display-glow {
+  text-shadow: 0 0 5px var(--glow);
+}
+
+@media (orientation: portrait) {
+  .rotate-message {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+  }
+
+  .viewport {
+    display: none;
+  }
+}
+
+@media (max-aspect-ratio: 4/3) and (orientation: landscape) {
+  .dashboard-stage {
+    width: 98vw;
+    max-height: 96vh;
+    padding: clamp(6px, 0.9vh, 12px);
+    gap: clamp(4px, 0.7vh, 8px);
+  }
+
+  .days-value {
+    font-size: clamp(3.2rem, 16vh, 12rem);
+  }
+
+  #tickerText {
+    font-size: clamp(0.95rem, 2.8vh, 2.2rem);
+  }
+
+  .card-value {
+    font-size: clamp(1.1rem, 4.1vh, 3rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
