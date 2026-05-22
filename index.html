@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Arrival Board</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="day-mode">
+  <div id="rotateNotice" class="rotate-message" aria-live="polite">
+    ROTATE DEVICE FOR ARRIVAL BOARD
+  </div>
+
+  <main id="appWrapper" class="viewport">
+    <div id="boardDriftLayer" class="terminal-screen">
+      <header id="boardHeader" class="terminal-header" title="Tap to enter fullscreen">
+        <div class="header-title"><span id="arrivalsTrigger">ARRIVAL STATUS CONSOLE</span></div>
+        <div class="system-status">SYS: ONLINE</div>
+      </header>
+
+      <hr class="terminal-divider" aria-hidden="true">
+
+      <section id="etaBoard" class="eta-section terminal-section" aria-live="polite">
+        <div class="section-label">ETA</div>
+        <div id="etaValue" class="section-value eta-value">-- MONTHS -- DAYS</div>
+      </section>
+
+      <hr class="terminal-divider" aria-hidden="true">
+
+      <section class="status-section terminal-section" aria-live="polite">
+        <div class="section-label">STATUS</div>
+        <div id="etaStatus" class="section-value status-value">EN ROUTE</div>
+      </section>
+
+      <hr class="terminal-divider" aria-hidden="true">
+
+      <section id="bottomRow" class="info-cards" aria-label="Local information">
+        <article class="info-card">
+          <div class="card-shell">
+            <div class="card-title">LOCAL TIME</div>
+            <div class="info-divider"></div>
+            <div id="timeValue" class="card-value">--:--:--</div>
+            <div class="card-subvalue">TIMEZONE: LOCAL</div>
+          </div>
+        </article>
+
+        <article class="info-card">
+          <div class="card-shell">
+            <div class="card-title">DATE</div>
+            <div class="info-divider"></div>
+            <div id="dateValue" class="card-value">---</div>
+            <div id="weekdayValue" class="card-subvalue">---</div>
+          </div>
+        </article>
+
+        <article class="info-card">
+          <div class="card-shell">
+            <div class="card-title">DAYS TO GO</div>
+            <div class="info-divider"></div>
+            <div id="daysValue" class="card-value big-number">---</div>
+            <div class="card-subvalue">DAYS REMAINING</div>
+          </div>
+        </article>
+      </section>
+
+      <hr class="terminal-divider" aria-hidden="true">
+
+      <footer id="tickerBoard" class="terminal-footer">
+        <div id="tickerTrack" class="ticker-track">
+          <span id="tickerText">&gt;&gt; STAY THE COURSE. THE WORK IS THE WAY. &lt;&lt;</span>
+        </div>
+      </footer>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
