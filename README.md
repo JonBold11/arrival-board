@@ -20,7 +20,7 @@ The design is inspired by vintage train/airport arrival boards:
 Open `script.js` and update the `DUE_DATE` constant near the top:
 
 ```js
-var DUE_DATE = new Date(2027, 0, 24, 0, 0, 0, 0);
+var DUE_DATE = new Date(2026, 11, 18, 0, 0, 0, 0);
 ```
 
 This is local-time midnight by default (`year, monthIndex, day, ...`).

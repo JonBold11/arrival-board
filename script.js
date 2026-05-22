@@ -1,7 +1,7 @@
 /* Arrival Board - plain JavaScript for old tablet compatibility */
 
 /* Due date at local midnight (device local time). */
-var DUE_DATE = new Date(2027, 0, 24, 0, 0, 0, 0);
+var DUE_DATE = new Date(2026, 11, 18, 0, 0, 0, 0);
 
 var TICKER_PRIORITY_MESSAGE = "ARRIVAL WINDOW CLOSING. CONTINUE THE WORK.";
 var RELOAD_STORAGE_KEY = "arrivalBoardLastReloadDate";
